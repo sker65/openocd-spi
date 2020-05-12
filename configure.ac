@@ -298,7 +298,7 @@ AS_CASE(["${host_cpu}"],
     build_ep93xx=no
     build_at91rm9200=no
     build_bcm2835gpio=no
-    build_bcm2835spi=no    
+    build_bcm2835spi=no
     build_imx_gpio=no
 ])
 
