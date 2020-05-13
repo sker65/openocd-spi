@@ -406,9 +406,9 @@ static int bitbang_swd_init(void)
 
 //  #define LOG_BITBANG  //  Log bit bang requests
 
-#if BUILD_BCM2835SPI == 1
+#if BUILD_BCM2835SPI == 1 || BUILD_OPIZEROSPI == 1
 void spi_exchange(bool rnw, uint8_t buf[], unsigned int offset, unsigned int bit_cnt);
-#endif  //  BUILD_BCM2835SPI == 1
+#endif  //  BUILD_BCM2835SPI == 1 or BUILD_OPIZEROSPI == 1
 
 static void bitbang_exchange(bool rnw, uint8_t buf[], unsigned int offset, unsigned int bit_cnt)
 {
@@ -426,7 +426,7 @@ static void bitbang_exchange(bool rnw, uint8_t buf[], unsigned int offset, unsig
 	LOG_DEBUG("bitbang_exchange");
 #endif  //  LOG_BITBANG
 
-#if BUILD_BCM2835SPI == 1  //  Transmit and receive SWD commands over SPI...
+#if BUILD_BCM2835SPI == 1 || BUILD_OPIZEROSPI == 1 //  Transmit and receive SWD commands over SPI...
 	spi_exchange(rnw, buf, offset, bit_cnt);
 #else  //  Transmit and receive SWD commands over GPIO...
 	int tdi;
@@ -447,7 +447,7 @@ static void bitbang_exchange(bool rnw, uint8_t buf[], unsigned int offset, unsig
 
 		bitbang_interface->write(1, 0, tdi);
 	}
-#endif  //  BUILD_BCM2835SPI == 1
+#endif  //  BUILD_BCM2835SPI == 1 or BUILD_OPIZEROSPI == 1
 
 #ifdef LOG_BITBANG
 	{

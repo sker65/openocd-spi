@@ -290,6 +290,9 @@ AS_CASE(["${host_cpu}"],
     AC_ARG_ENABLE([bcm2835spi],
       AS_HELP_STRING([--enable-bcm2835spi], [Enable building support for SPI on BCM2835 (as found in Raspberry Pi)]),
       [build_bcm2835spi=$enableval], [build_bcm2835spi=no])
+    AC_ARG_ENABLE([opizerospi],
+      AS_HELP_STRING([--enable-opizerospi], [Enable building support for SPI on Orange Pi Zero (as copied from Raspberry Pi)]),
+      [build_opizerospi=$enableval], [build_opispizerospi=no])
     AC_ARG_ENABLE([imx_gpio],
       AS_HELP_STRING([--enable-imx_gpio], [Enable building support for bitbanging on NXP IMX processors]),
       [build_imx_gpio=$enableval], [build_imx_gpio=no])
@@ -299,6 +302,7 @@ AS_CASE(["${host_cpu}"],
     build_at91rm9200=no
     build_bcm2835gpio=no
     build_bcm2835spi=no
+    build_opispizerospi=no
     build_imx_gpio=no
 ])
 
@@ -520,6 +524,13 @@ AS_IF([test "x$build_bcm2835spi" = "xyes"], [
   AC_DEFINE([BUILD_BCM2835SPI], [0], [0 if you don't want bcm2835spi.])
 ])
 
+AS_IF([test "x$build_opizerospi" = "xyes"], [
+  build_bitbang=yes
+  AC_DEFINE([BUILD_OPIZEROSPI], [1], [1 if you want opizero.])
+], [
+  AC_DEFINE([BUILD_OPIZEROSPI], [0], [0 if you don't want opizero.])
+])
+
 AS_IF([test "x$build_imx_gpio" = "xyes"], [
   build_bitbang=yes
   AC_DEFINE([BUILD_IMX_GPIO], [1], [1 if you want imx_gpio.])
@@ -701,6 +712,7 @@ AM_CONDITIONAL([IOUTIL], [test "x$build_ioutil" = "xyes"])
 AM_CONDITIONAL([AT91RM9200], [test "x$build_at91rm9200" = "xyes"])
 AM_CONDITIONAL([BCM2835GPIO], [test "x$build_bcm2835gpio" = "xyes"])
 AM_CONDITIONAL([BCM2835SPI], [test "x$build_bcm2835spi" = "xyes"])
+AM_CONDITIONAL([OPIZEROSPI], [test "x$build_opizerospi" = "xyes"])
 AM_CONDITIONAL([IMX_GPIO], [test "x$build_imx_gpio" = "xyes"])
 AM_CONDITIONAL([BITBANG], [test "x$build_bitbang" = "xyes"])
 AM_CONDITIONAL([JTAG_VPI], [test "x$build_jtag_vpi" = "xyes" -o "x$build_jtag_vpi" = "xyes"])

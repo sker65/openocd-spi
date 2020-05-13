@@ -126,6 +126,9 @@ extern struct jtag_interface bcm2835gpio_interface;
 #if BUILD_BCM2835SPI == 1
 extern struct jtag_interface bcm2835spi_interface;
 #endif
+#if BUILD_OPIZEROSPI == 1
+extern struct jtag_interface opizerospi_interface;
+#endif
 #if BUILD_CMSIS_DAP == 1
 extern struct jtag_interface cmsis_dap_interface;
 #endif
@@ -233,6 +236,9 @@ struct jtag_interface *jtag_interfaces[] = {
 #endif
 #if BUILD_BCM2835SPI == 1
 		&bcm2835spi_interface,
+#endif
+#if BUILD_OPIZEROSPI == 1
+		&opizerospi_interface,
 #endif
 #if BUILD_CMSIS_DAP == 1
 		&cmsis_dap_interface,
